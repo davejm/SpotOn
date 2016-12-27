@@ -1,0 +1,49 @@
+body {
+  // text-align: center;
+}
+
+.artist {
+  border-bottom: 1px solid #dddddd;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0;
+}
+
+.artist:first-child {
+    border-top-left-radius: 2px;
+}
+
+.artist:last-child {
+    border-bottom-left-radius: 2px;
+}
+
+.artist-name {
+  margin-top: 5px;
+  display: block;
+}
+
+#search-artist-list .artist:hover {
+  background-color: #eeeeee;
+}
+
+.artist img {
+  max-width: 32px;
+}
+
+.artist-search {
+  margin-bottom: 20px;
+}
+
+.artist-list {
+  overflow-y: scroll;
+  min-height: 300px;
+  max-height: 500px;
+}
+
+#selected-artist-list .artist:hover {
+  background-color: red;
+}
+
+footer {
+  margin-top: 30px;
+}
