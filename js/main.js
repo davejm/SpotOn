@@ -109,6 +109,6 @@ var redirect_uri = '';
 if (location.host == 'localhost:8000') {
   redirect_uri = 'http://localhost:8000/callback.html';
 } else {
-  redirect_uri = 'https://www.davidmoodie.com/spotitop/callback.html';
+  redirect_uri = 'https://spoton.davidmoodie.com/callback.html';
 }
 
