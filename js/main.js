@@ -47,8 +47,12 @@ $('#artist-search').on('submit', function(event) {
 $('#search-artist-list').on('click', '.artist', function(event) {
   $('.album-list').empty()
   var id = $(event.currentTarget).data('id')
-  $("#selected-artist-list").append(event.currentTarget)
-  selectedArtistIds.push(id)
+  if (selectedArtistIds.indexOf(id) > -1) {
+    $(event.currentTarget).remove()
+  } else {
+    $("#selected-artist-list").append(event.currentTarget)
+    selectedArtistIds.push(id)
+  }
 })
 
 $('#selected-artist-list').on('click', '.artist', function(event) {
