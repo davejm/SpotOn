@@ -1,9 +1,9 @@
 {
-  "name": "SpotiTop",
+  "name": "SpotOn",
   "authors": [
     "David Moodie <davidmoodie12@gmail.com>"
   ],
-  "description": "",
+  "description": "Create Spotify playlists from the top tracks of your favourite artists!",
   "main": "",
   "license": "MIT",
   "homepage": "",
