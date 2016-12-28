@@ -28,6 +28,10 @@ $('#artist-search').on('submit', function(event) {
   event.preventDefault()
 
   var name = $("#artistSearchInput").val()
+  if (!name) {
+    alert("Please enter and artist's name to search")
+    return
+  }
 
   spotifyApi.searchArtists(name)
     .then(function(data) {
@@ -88,6 +92,12 @@ function generateRandomString(length) {
 $("#createPlaylist").click(function() {
   var scope = 'playlist-modify-public'
   var playlistName = $("#playlist-name").val()
+
+  if (!playlistName) {
+    alert("Playlist name can not be empty")
+    return
+  }
+
   localStorage.setItem(playlistNameKey, playlistName)
   localStorage.setItem(artistsKey, JSON.stringify(selectedArtistIds))
 
