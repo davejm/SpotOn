@@ -1,5 +1,5 @@
 function artistElement(artist) {
-  var img = artist.images[0] || { url: 'http://placehold.it/64x64' }
+  var img = artist.images[0] || { url: 'https://placehold.it/64x64' }
 
   return `
     <div class="media artist" data-id="${artist.id}">
@@ -111,4 +111,3 @@ if (location.host == 'localhost:8000') {
 } else {
   redirect_uri = 'https://www.spotonplaylist.com/callback.html';
 }
-
