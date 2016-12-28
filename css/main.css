@@ -36,8 +36,7 @@ body {
 
 .artist-list {
   overflow-y: scroll;
-  min-height: 300px;
-  max-height: 500px;
+  height: 300px;
 }
 
 #selected-artist-list .artist:hover {
