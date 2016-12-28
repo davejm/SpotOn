@@ -63,7 +63,7 @@
 
               <div class="form-group">
                 <label for="artist">Artist name</label>
-                <input type="text" class="form-control" id="artistSearchInput" name="query" value="Foals" placeholder="Artist name" />
+                <input type="text" class="form-control" id="artistSearchInput" name="query" placeholder="Artist name" />
               </div>
 
               <button type="submit" class="btn btn-default">Search</button>
@@ -73,22 +73,25 @@
       </div>
       <div class="row">
         <div class="col-md-6">
+          <h4>Search Results</h4>
           <div class="artist-list" id="search-artist-list"></div>
         </div>
         <div class="col-md-6">
-          <!-- <h2>Selected Artists</h2> -->
+          <h4>Selected Artists</h4>
           <div class="artist-list" id="selected-artist-list"></div>
         </div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="form-group">
-        <label for="playlist-name">Playlist Name</label>
-        <input required type="text" id="playlist-name" class="form-control" placeholder="Playlist Name">
-      </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="playlist-name">Playlist Name</label>
+          <input required type="text" id="playlist-name" class="form-control" placeholder="Playlist Name">
+        </div>
 
-      <button class="btn btn-block btn-primary" id="createPlaylist">Create Playlist</button>
+        <button class="btn btn-block btn-primary" id="createPlaylist">Create Playlist</button>
+      </div>
     </div>
 
     <footer>
