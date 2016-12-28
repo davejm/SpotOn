@@ -30,16 +30,39 @@ function createPlaylist(username, name, callback) {
     })
 }
 
+function chunkify(arr, n) {
+  var chunks = []
+  var i, j = n
+  var temparray
+
+  for (i = 0, j = arr.length; i < j; i += n) {
+    temparray = arr.slice(i, i + n)
+    chunks.push(temparray)
+  }
+  return chunks
+}
+
 function addTracksToPlaylist(username, playlistId, tracks, callback) {
   console.log('addTracksToPlaylist', username, playlistId, tracks)
-  spotifyApi.addTracksToPlaylist(username, playlistId, tracks)
-    .then(function(data) {
-      console.log(data)
-      callback()
-    }, function(err) {
-      console.error(err)
-      callback()
-    })
+
+  var chunks = chunkify(tracks, 100)
+
+  var chain = Q.when();
+  chunks.map(function(chunk) {
+    chain = chain.then(function() {
+      var promise = spotifyApi.addTracksToPlaylist(username, playlistId, chunk)
+        .then(function(data) {
+          console.log(data)
+        }, function(err) {
+          console.error(err)
+          callback()
+        })
+      return promise
+    });
+  })
+
+  chain = chain.then(callback())
+
 }
 
 function getTopTracks(artistIds, callback) {
