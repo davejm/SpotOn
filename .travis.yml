@@ -1,0 +1,16 @@
+before_script:
+- npm install -g bower
+
+script:
+- chmod +x ./bin/deploy.sh
+- bash ./bin/deploy.sh
+
+env:
+  global:
+  - USERNAME: davejm
+  - EMAIL: davidmoodie12@gmail.com
+  - secure: sF8EE4Ot2kTTDqCrt4mAxxnTLP+Bac6u7wtxQzLWeGJ3/FtZMLDfZLkbMVB3MLyFfTMQBzCrIxyqlBI4ijA0zGqH5qALpIAThCq9nzJktawHHQHY9eqQ+VL6C8uwHHjlMpSB9rl8LeFZpLvnyd5GyV54+Ee0nSN/+Y+54vzbuz1nIlTT2Vq9zRn50xlQFwbJVRkK04s5+1th4tkC8kkYtsSr3T2OrE1I/lEc9WZeuwFrly7VqxuLdgPT3ZPXUYiOCqckgkcT9hHPKZRhxLd0AS2VBW03/DEoyVK/2d6ygzWlVX/YUjI9hRVoyPBlooKPO4r4lmdhnRKzkQFo8H8oQh4w2Zaewo8PyBN4Bs0gKbBpcCNBeJBhGZyZsxarkQbVTp6KaER+5/oAJVPDVGZBQ8HHlDoraVZSMsBgGo0268lwFYHlRb4wSdtSaX6Ves4pLeb9/tRKdli244RUsydWCAZeCHt0Rom2PuJ2YYfhBN4jnhW4oH0Sa/smd9UFYIUzJhNEDUbfd71N5s1/puejEG8zM8eP5OzOrI8+k56vXqN+ZPSYCCNgSgyOMxVsqBGNRq39JFJQM2T/+QDDQ2OZemJuAZTzvZ6rEdYsiX+sA8wgWSKF6OGljzQmECmcCkYQpejawTm+gZI+tq6GTugTTipArM8cocVz6hFxsZEnJ2w=
+
+language: node_js
+node_js:
+- stable
