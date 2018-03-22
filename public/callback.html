@@ -1,0 +1,26 @@
+<html>
+<head>
+    <script>
+        (function() {
+            function getUrlParams() {
+                var urlString = window.location.href;
+                var url = new URL(urlString);
+                var params = {};
+                for (var p of url.searchParams) {
+                    params[p[0]] = p[1];
+                }
+                return params;
+            }
+            var urlParams = getUrlParams();
+            console.log('initial hash', urlParams);
+            if (urlParams.code) {
+                window.opener.postMessage({
+                    type: 'spotify_access_code',
+                    code: urlParams.code,
+                }, window.location.origin);
+                window.close();
+            }
+        })();
+    </script>
+</head>
+</html>
