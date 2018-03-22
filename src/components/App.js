@@ -10,9 +10,10 @@ class App extends Component {
         auth: false
     };
 
-    handleAuthorized(authCode) {
-        console.log('auth code', authCode);
-    }
+    handleAuthorized = () => {
+        console.log('authorized');
+        this.setState({auth: true});
+    };
 
     render() {
         const {spotifyApi} = this.props;

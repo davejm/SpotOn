@@ -6639,9 +6639,9 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
-spotify-web-api-node@^3.0.0:
+spotify-web-api-node@davejm/spotify-web-api-node#support-implicit-auth:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/spotify-web-api-node/-/spotify-web-api-node-3.0.0.tgz#c9f6dab8f2edf93ac0e270e434ef1135d241ab7c"
+  resolved "https://codeload.github.com/davejm/spotify-web-api-node/tar.gz/50a2a6eb83864e474d39871b20667221da95215f"
   dependencies:
     superagent "^2.0.0"
 

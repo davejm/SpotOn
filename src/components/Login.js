@@ -11,8 +11,9 @@ class Login extends Component {
         window.addEventListener("message", (event) => {
             console.log(event);
             const message = event.data;
-            if (message.type === 'spotify_access_code') {
-                this.props.onAuthorize(message.code);
+            if (message.type === 'spotify_access_token') {
+                this.props.spotifyApi.setAccessToken(message.access_token);
+                this.props.onAuthorize();
             }
         }, false);
     };
@@ -21,7 +22,9 @@ class Login extends Component {
         const {spotifyApi} = this.props;
         const state = "should-be-a-random-state-probably";
         const scopes = ['playlist-modify-public', 'user-top-read'];
-        const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+
+        // Create implicit auth URL (currently depending on spotify api node fork for the implicit flag)
+        const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state, false, true);
 
         const width = 450,
             height = 730,
