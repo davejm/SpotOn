@@ -22,7 +22,7 @@ class App extends Component {
                 <CssBaseline/>
                 <AppBar/>
                 {this.state.auth
-                    ? <ArtistSearchContainer/>
+                    ? <ArtistSearchContainer spotifyApi={spotifyApi}/>
                     : <Login spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
                 }
             </div>

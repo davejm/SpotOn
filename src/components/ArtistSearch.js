@@ -38,11 +38,11 @@ const renderSuggestion = (suggestion, { query, isHighlighted }) => {
                 <Fragment>
                     {parts.map((part, index) => {
                         return part.highlight ? (
-                            <span key={String(index)} style={{ fontWeight: 300 }}>
+                            <span key={String(index)} style={{ fontWeight: 500 }}>
                                 {part.text}
                             </span>
                         ) : (
-                            <strong key={String(index)} style={{ fontWeight: 500 }}>
+                            <strong key={String(index)} style={{ fontWeight: 300 }}>
                                 {part.text}
                             </strong>
                         );

@@ -9,9 +9,10 @@ class Login extends Component {
 
     addMessageListener = () => {
         window.addEventListener("message", (event) => {
-            console.log(event);
+            // console.log(event);
             const message = event.data;
             if (message.type === 'spotify_access_token') {
+                // console.log("access token", message.access_token);
                 this.props.spotifyApi.setAccessToken(message.access_token);
                 this.props.onAuthorize();
             }

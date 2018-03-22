@@ -1,62 +1,6 @@
 import React, {Component} from 'react';
 import ArtistSearch from '../components/ArtistSearch';
-
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
-];
-
-const getSuggestions = (value) => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-    let count = 0;
-
-    return inputLength === 0
-        ? []
-        : suggestions.filter(suggestion => {
-            const keep =
-                count < 5 && suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
-
-            if (keep) {
-                count += 1;
-            }
-
-            return keep;
-        });
-};
-
+import PropTypes from "prop-types";
 
 class ArtistSearchContainer extends Component {
     state = {
@@ -64,9 +8,29 @@ class ArtistSearchContainer extends Component {
         suggestions: [],
     };
 
-    handleSuggestionsFetchRequested = ({ value }) => {
+    parseArtistSearchResponse(res) {
+        return res.body.artists.items.map((item) => {
+           return {
+               label: item.name
+           };
+        });
+    }
+
+    searchArtist = async (query) => {
+        const {spotifyApi} = this.props;
+        try {
+            const res = await spotifyApi.searchArtists(query, {limit: 10});
+            console.log(res);
+            return this.parseArtistSearchResponse(res);
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
+    };
+
+    handleSuggestionsFetchRequested = async ({ value }) => {
         this.setState({
-            suggestions: getSuggestions(value),
+            suggestions: await this.searchArtist(value),
         });
     };
 
@@ -94,5 +58,9 @@ class ArtistSearchContainer extends Component {
         );
     }
 }
+
+ArtistSearchContainer.propTypes = {
+    spotifyApi: PropTypes.object.isRequired
+};
 
 export default ArtistSearchContainer;
