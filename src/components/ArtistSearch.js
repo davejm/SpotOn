@@ -33,7 +33,7 @@ const renderSuggestion = (suggestion, { query, isHighlighted }) => {
 
     return (
         <MenuItem selected={isHighlighted} component="div" style={{height: 'auto'}}>
-            <Avatar src="https://material-ui-next.com/static/images/remy.jpg"/>
+            <Avatar src={suggestion.image}/>
             <ListItemText>
                 <Fragment>
                     {parts.map((part, index) => {
