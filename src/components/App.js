@@ -3,29 +3,11 @@ import CssBaseline from 'material-ui/CssBaseline';
 import AppBar from './AppBar';
 import ArtistSearchContainer from '../containers/ArtistSearchContainer';
 import Login from './Login';
-
-import SpotifyWebApi from 'spotify-web-api-node';
+import withSpotifyApi from '../hocs/SpotifyApi';
 
 class App extends Component {
     state = {
-        auth: false,
-        spotifyApi: null
-    };
-
-    componentDidMount() {
-        this.initSpotifyApi();
-    }
-
-    initSpotifyApi = () => {
-        const redirectUri = "http://localhost:3000/callback.html";
-        const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
-
-        const spotifyApi = new SpotifyWebApi({
-            redirectUri,
-            clientId
-        });
-        console.log("spot api", spotifyApi);
-        this.setState({spotifyApi: spotifyApi});
+        auth: false
     };
 
     handleAuthorized(authCode) {
@@ -33,17 +15,21 @@ class App extends Component {
     }
 
     render() {
+        const {spotifyApi} = this.props;
         return (
             <div>
                 <CssBaseline/>
                 <AppBar/>
                 {this.state.auth
                     ? <ArtistSearchContainer/>
-                    : this.state.spotifyApi && <Login spotifyApi={this.state.spotifyApi} onAuthorize={this.handleAuthorized}/>
+                    : <Login spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
                 }
             </div>
         );
     }
 }
 
-export default App;
+const redirectUri = "http://localhost:3000/callback.html";
+const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
+
+export default withSpotifyApi(clientId, redirectUri)(App);
