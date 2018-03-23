@@ -38,7 +38,7 @@ class SelectedArtists extends Component {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     {Object.keys(this.props.artists).length > 0 &&
-                        <GridList cellHeight={180} cols={this.numCols()}>
+                        <GridList cellHeight={180} cols={this.numCols()} style={{flexGrow: 1}}>
                             {Object.values(this.props.artists).map(artist => (
                                 <SelectedArtist
                                     name={artist.name}
