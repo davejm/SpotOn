@@ -40,7 +40,13 @@ class SelectedArtists extends Component {
                     {Object.keys(this.props.artists).length > 0 &&
                         <GridList cellHeight={180} cols={this.numCols()}>
                             {Object.values(this.props.artists).map(artist => (
-                                <SelectedArtist name={artist.name} image={artist.imageHiRes} key={artist.id}/>
+                                <SelectedArtist
+                                    name={artist.name}
+                                    image={artist.imageHiRes}
+                                    key={artist.id}
+                                    onRemoveArtist={this.props.onRemoveArtist}
+                                    id={artist.id}
+                                />
                             ))}
                         </GridList>
                     }
@@ -51,7 +57,8 @@ class SelectedArtists extends Component {
 }
 
 SelectedArtists.propTypes = {
-    artists: PropTypes.object.isRequired
+    artists: PropTypes.object.isRequired,
+    onRemoveArtist: PropTypes.func.isRequired
 };
 
 export default withWidth()(SelectedArtists);

@@ -7,8 +7,12 @@ import Tooltip from 'material-ui/Tooltip';
 import { GridListTile, GridListTileBar } from 'material-ui/GridList';
 
 class SelectedArtist extends Component {
+    handleRemoveArtist = () => {
+        this.props.onRemoveArtist(this.props.id);
+    };
+
     render() {
-        const {name, image, ...others} = this.props;
+        const {name, image, onRemoveArtist, id, ...others} = this.props;
         return (
             <GridListTile {...others}>
                 <img src={image} alt={name} />
@@ -16,7 +20,7 @@ class SelectedArtist extends Component {
                     title={name}
                     actionIcon={
                         <Tooltip title="Remove artist">
-                            <IconButton style={{color: 'rgba(255, 0, 0, 0.78)'}}>
+                            <IconButton style={{color: 'rgba(255, 0, 0, 0.78)'}} onClick={this.handleRemoveArtist}>
                                 <RemoveCircleIcon/>
                             </IconButton>
                         </Tooltip>
@@ -29,7 +33,9 @@ class SelectedArtist extends Component {
 
 SelectedArtist.propTypes = {
     name: PropTypes.string.isRequired,
-    image: PropTypes.string
+    image: PropTypes.string,
+    onRemoveArtist: PropTypes.func.isRequired,
+    // id: PropTypes.number.isRequired
 };
 
 export default SelectedArtist;

@@ -6,17 +6,24 @@ import LoginContainer from '../containers/LoginContainer';
 import withSpotifyApi from '../hocs/SpotifyApi';
 import { withStyles } from 'material-ui/styles';
 import SelectedArtists from '../components/SelectedArtists';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import omit from 'lodash.omit';
 
-const styles = {
+const styles = (theme) => ({
     content: {
         padding: 20
+    },
+    button: {
+        marginTop: theme.spacing.unit * 3
     }
-};
+});
 
 class App extends Component {
     state = {
         auth: false,
-        selectedArtists: {}
+        selectedArtists: {},
+        newPlaylistName: ''
     };
 
     handleAuthorized = () => {
@@ -31,6 +38,18 @@ class App extends Component {
         }));
     };
 
+    handlePlaylistNameChange = (event) => {
+        this.setState({
+            newPlaylistName: event.target.value
+        });
+    };
+
+    handleRemoveArtist = (id) => {
+        this.setState((prevState, props) => ({
+            selectedArtists: omit(prevState.selectedArtists, id)
+        }))
+    };
+
     render() {
         const {spotifyApi, classes} = this.props;
         return (
@@ -42,7 +61,19 @@ class App extends Component {
                         ? (
                             <Fragment>
                                 <ArtistSearchContainer spotifyApi={spotifyApi} onSelect={this.handleArtistAdd}/>
-                                <SelectedArtists artists={this.state.selectedArtists}/>
+                                <SelectedArtists artists={this.state.selectedArtists} onRemoveArtist={this.handleRemoveArtist}/>
+                                <TextField
+                                    id="newPlaylistName"
+                                    label="New playlist name"
+                                    value={this.state.newPlaylistName}
+                                    onChange={this.handlePlaylistNameChange}
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                />
+                                <Button color="primary" variant="raised" size="large" fullWidth className={classes.button}>
+                                    Create new playlist
+                                </Button>
                             </Fragment>
                         )
                         : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
