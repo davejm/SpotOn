@@ -16,7 +16,7 @@ const withSpotifyApi = (clientId, redirectUri) => (WrappedComponent) => {
                 redirectUri,
                 clientId
             });
-            console.log("spot api", spotifyApi);
+            // console.log("spot api", spotifyApi);
             this.setState({spotifyApi: spotifyApi});
         };
 

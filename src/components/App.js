@@ -4,12 +4,14 @@ import AppBar from './AppBar';
 import ArtistSearchContainer from '../containers/ArtistSearchContainer';
 import LoginContainer from '../containers/LoginContainer';
 import withSpotifyApi from '../hocs/SpotifyApi';
-import { withStyles } from 'material-ui/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import SelectedArtists from '../components/SelectedArtists';
 import TextField from 'material-ui/TextField';
 import omit from 'lodash.omit';
 import CreatePlaylistContainer from '../containers/CreatePlaylistContainer';
 import FlashMessage from './FlashMessage';
+import {compose} from 'recompose';
+import green from 'material-ui/colors/green';
 
 const styles = {
     content: {
@@ -17,6 +19,12 @@ const styles = {
         paddingTop: 40
     }
 };
+
+const theme = createMuiTheme({
+    palette: {
+        primary: green
+    }
+});
 
 class App extends Component {
     state = {
@@ -30,12 +38,12 @@ class App extends Component {
     };
 
     handleAuthorized = () => {
-        console.log('authorized');
+        // console.log('authorized');
         this.setState({auth: true});
     };
 
     handleArtistAdd = (selection) => {
-        console.log(selection);
+        // console.log(selection);
         this.setState((prevState, props) => ({
             selectedArtists: {...prevState.selectedArtists, [selection.id]: selection}
         }));
@@ -78,7 +86,7 @@ class App extends Component {
     render() {
         const {spotifyApi, classes} = this.props;
         return (
-            <div>
+            <MuiThemeProvider theme={theme}>
                 <CssBaseline/>
                 <AppBar/>
                 <div className={classes.content}>
@@ -104,11 +112,11 @@ class App extends Component {
                                 />
                             </Fragment>
                         )
-                        : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
+                        : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized} showNotification={this.showNotification}/>
                     }
                 </div>
                 <FlashMessage open={this.state.notification.open} text={this.state.notification.text} onClose={this.closeNotification}/>
-            </div>
+            </MuiThemeProvider>
         );
     }
 }
@@ -116,4 +124,9 @@ class App extends Component {
 const redirectUri = "http://localhost:3000/callback.html";
 const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
 
-export default withSpotifyApi(clientId, redirectUri)(withStyles(styles)(App));
+const enhance = compose(
+    withStyles(styles),
+    withSpotifyApi(clientId, redirectUri)
+);
+
+export default enhance(App);

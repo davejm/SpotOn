@@ -15,6 +15,8 @@ class LoginContainer extends Component {
                 // console.log("access token", message.access_token);
                 this.props.spotifyApi.setAccessToken(message.access_token);
                 this.props.onAuthorize();
+            } else if (message.type === 'spotify_login_error') {
+                this.props.showNotification('Error logging in - ' + message.error);
             }
         }, false);
     };
@@ -47,7 +49,8 @@ class LoginContainer extends Component {
 
 LoginContainer.propTypes = {
     spotifyApi: PropTypes.object.isRequired,
-    onAuthorize: PropTypes.func.isRequired
+    onAuthorize: PropTypes.func.isRequired,
+    showNotification: PropTypes.func.isRequired
 };
 
 export default LoginContainer;

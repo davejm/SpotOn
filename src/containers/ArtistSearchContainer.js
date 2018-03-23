@@ -26,7 +26,7 @@ class ArtistSearchContainer extends Component {
         const {spotifyApi} = this.props;
         try {
             const res = await spotifyApi.searchArtists(query, {limit: 6});
-            console.log(res);
+            // console.log(res);
             return this.parseArtistSearchResponse(res);
         } catch (e) {
             console.error(e);

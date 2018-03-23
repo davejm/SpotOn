@@ -3,14 +3,43 @@
 <head>
     <script>
         (function() {
-            var hash = {};
-            window.location.hash.replace(/^#\/?/, '').split('&').forEach(function(kv) {
-                var spl = kv.indexOf('=');
-                if (spl != -1) {
-                    hash[kv.substring(0, spl)] = decodeURIComponent(kv.substring(spl+1));
+            function getUrlHash() {
+                var hash = {};
+                window.location.hash.replace(/^#\/?/, '').split('&').forEach(function(kv) {
+                    var spl = kv.indexOf('=');
+                    if (spl != -1) {
+                        hash[kv.substring(0, spl)] = decodeURIComponent(kv.substring(spl+1));
+                    }
+                });
+                return hash;
+            }
+
+            // https://stackoverflow.com/a/1099670
+            function getQueryParams(qs) {
+                qs = qs.split('+').join(' ');
+
+                var params = {},
+                    tokens,
+                    re = /[?&]?([^=]+)=([^&]*)/g;
+
+                while (tokens = re.exec(qs)) {
+                    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
                 }
-            });
-            console.log('initial hash', hash);
+
+                return params;
+            }
+
+            var hash = getUrlHash();
+            var urlParams = getQueryParams(window.location.search);
+
+            if (urlParams.error) {
+                window.opener.postMessage({
+                    type:'spotify_login_error',
+                    error: urlParams.error
+                }, window.location.origin);
+                window.close();
+            }
+
             if (hash.access_token) {
                 window.opener.postMessage({
                     type:'spotify_access_token',
@@ -19,6 +48,8 @@
                 }, window.location.origin);
                 window.close();
             }
+
+            document.writeln('Unknown error');
         })();
     </script>
 </head>

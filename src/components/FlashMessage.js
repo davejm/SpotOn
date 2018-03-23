@@ -30,7 +30,7 @@ class FlashMessage extends React.Component {
                     horizontal: 'right',
                 }}
                 open={this.props.open}
-                autoHideDuration={2500}
+                autoHideDuration={4000}
                 onClose={this.handleClose}
                 SnackbarContentProps={{
                     'aria-describedby': 'app-notification',
