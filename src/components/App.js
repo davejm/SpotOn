@@ -7,23 +7,26 @@ import withSpotifyApi from '../hocs/SpotifyApi';
 import { withStyles } from 'material-ui/styles';
 import SelectedArtists from '../components/SelectedArtists';
 import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
 import omit from 'lodash.omit';
+import CreatePlaylistContainer from '../containers/CreatePlaylistContainer';
+import FlashMessage from './FlashMessage';
 
-const styles = (theme) => ({
+const styles = {
     content: {
-        padding: 20
-    },
-    button: {
-        marginTop: theme.spacing.unit * 3
+        padding: 20,
+        paddingTop: 40
     }
-});
+};
 
 class App extends Component {
     state = {
         auth: false,
         selectedArtists: {},
-        newPlaylistName: ''
+        newPlaylistName: '',
+        notification: {
+            open: false,
+            text: ''
+        }
     };
 
     handleAuthorized = () => {
@@ -50,6 +53,28 @@ class App extends Component {
         }))
     };
 
+    selectedArtistIds = () => (
+        Object.keys(this.state.selectedArtists)
+    );
+
+    showNotification = (text) => {
+        this.setState({
+            notification: {
+                open: true,
+                text
+            }
+        });
+    };
+
+    closeNotification = () => {
+        this.setState((prevState, props) => ({
+            notification: {
+                ...prevState.notification,
+                open: false
+            }
+        }))
+    };
+
     render() {
         const {spotifyApi, classes} = this.props;
         return (
@@ -71,14 +96,18 @@ class App extends Component {
                                     required
                                     fullWidth
                                 />
-                                <Button color="primary" variant="raised" size="large" fullWidth className={classes.button}>
-                                    Create new playlist
-                                </Button>
+                                <CreatePlaylistContainer
+                                    spotifyApi={spotifyApi}
+                                    artistIds={this.selectedArtistIds()}
+                                    playlistName={this.state.newPlaylistName}
+                                    showNotification={this.showNotification}
+                                />
                             </Fragment>
                         )
                         : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
                     }
                 </div>
+                <FlashMessage open={this.state.notification.open} text={this.state.notification.text} onClose={this.closeNotification}/>
             </div>
         );
     }

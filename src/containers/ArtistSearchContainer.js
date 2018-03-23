@@ -16,7 +16,8 @@ class ArtistSearchContainer extends Component {
                 name: item.name,
                 imageLowRes,
                 imageHiRes,
-                id: item.id
+                id: item.id,
+                uri: item.uri
             };
         });
     }
