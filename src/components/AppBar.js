@@ -18,7 +18,7 @@ const AppBar = ({classes}) => (
     <MaterialAppBar position="static">
         <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
-                SpotOn - A <a href="https://davidmoodie.com">David Moodie Project</a>
+                SpotOn - <a href="https://davidmoodie.com">David Moodie</a>
             </Typography>
             <Tooltip id="appbar-github" title="SpotOn GitHub repo">
                 <IconButton
