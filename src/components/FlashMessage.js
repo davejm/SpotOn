@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
+import Button from 'material-ui/Button';
 
 const styles = theme => ({
     close: {
@@ -22,7 +23,7 @@ class FlashMessage extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, openUrl } = this.props;
         return (
             <Snackbar
                 anchorOrigin={{
@@ -37,15 +38,22 @@ class FlashMessage extends React.Component {
                 }}
                 message={<span id="app-notification">{this.props.text}</span>}
                 action={
-                    <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        className={classes.close}
-                        onClick={this.handleClose}
-                    >
-                        <CloseIcon />
-                    </IconButton>
+                    <Fragment>
+                        {openUrl &&
+                            <Button key="open" color="secondary" size="small" component="a" href={openUrl} target="_blank" rel="noreferrer noopener">
+                                OPEN
+                            </Button>
+                        }
+                        <IconButton
+                            key="close"
+                            aria-label="Close"
+                            color="inherit"
+                            className={classes.close}
+                            onClick={this.handleClose}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Fragment>
                 }
             />
         );
@@ -56,7 +64,8 @@ FlashMessage.propTypes = {
     classes: PropTypes.object.isRequired,
     open: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    openUrl: PropTypes.string
 };
 
 export default withStyles(styles)(FlashMessage);

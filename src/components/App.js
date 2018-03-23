@@ -39,7 +39,8 @@ class App extends Component {
         newPlaylistName: '',
         notification: {
             open: false,
-            text: ''
+            text: '',
+            openUrl: null
         }
     };
 
@@ -71,11 +72,12 @@ class App extends Component {
         Object.keys(this.state.selectedArtists)
     );
 
-    showNotification = (text) => {
+    showNotification = (text, openUrl = null) => {
         this.setState({
             notification: {
                 open: true,
-                text
+                text,
+                openUrl
             }
         });
     };
@@ -121,7 +123,12 @@ class App extends Component {
                         : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized} showNotification={this.showNotification}/>
                     }
                 </div>
-                <FlashMessage open={this.state.notification.open} text={this.state.notification.text} onClose={this.closeNotification}/>
+                <FlashMessage
+                    open={this.state.notification.open}
+                    text={this.state.notification.text}
+                    onClose={this.closeNotification}
+                    openUrl={this.state.notification.openUrl}
+                />
             </MuiThemeProvider>
         );
     }

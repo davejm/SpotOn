@@ -51,7 +51,10 @@ class CreatePlaylistContainer extends Component {
     createPlaylist = async (userId) => {
         const {spotifyApi, playlistName} = this.props;
         const res = await spotifyApi.createPlaylist(userId, playlistName, {public: true});
-        return res.body.id;
+        return {
+            playlistId: res.body.id,
+            playlistUrl: res.body.external_urls.spotify
+        };
     };
 
     addTracksToPlaylist = async (userId, playlistId, trackUris) => {
@@ -76,9 +79,9 @@ class CreatePlaylistContainer extends Component {
         showNotification('Creating...');
         const userId = await this.getUserId();
         const trackUris = await this.getTracks();
-        const playlistId = await this.createPlaylist(userId);
+        const {playlistId, playlistUrl} = await this.createPlaylist(userId);
         await this.addTracksToPlaylist(userId, playlistId, trackUris);
-        showNotification('Successfully created playlist');
+        showNotification('Successfully created playlist', playlistUrl);
     };
 
     render() {
