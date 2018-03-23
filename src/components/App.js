@@ -2,8 +2,15 @@ import React, {Component} from 'react';
 import CssBaseline from 'material-ui/CssBaseline';
 import AppBar from './AppBar';
 import ArtistSearchContainer from '../containers/ArtistSearchContainer';
-import Login from './Login';
+import LoginContainer from '../containers/LoginContainer';
 import withSpotifyApi from '../hocs/SpotifyApi';
+import { withStyles } from 'material-ui/styles';
+
+const styles = {
+    content: {
+        padding: 20
+    }
+};
 
 class App extends Component {
     state = {
@@ -16,15 +23,17 @@ class App extends Component {
     };
 
     render() {
-        const {spotifyApi} = this.props;
+        const {spotifyApi, classes} = this.props;
         return (
             <div>
                 <CssBaseline/>
                 <AppBar/>
-                {this.state.auth
-                    ? <ArtistSearchContainer spotifyApi={spotifyApi}/>
-                    : <Login spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
-                }
+                <div className={classes.content}>
+                    {this.state.auth
+                        ? <ArtistSearchContainer spotifyApi={spotifyApi}/>
+                        : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
+                    }
+                </div>
             </div>
         );
     }
@@ -33,4 +42,4 @@ class App extends Component {
 const redirectUri = "http://localhost:3000/callback.html";
 const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
 
-export default withSpotifyApi(clientId, redirectUri)(App);
+export default withSpotifyApi(clientId, redirectUri)(withStyles(styles)(App));

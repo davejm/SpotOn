@@ -10,9 +10,9 @@ class ArtistSearchContainer extends Component {
 
     parseArtistSearchResponse(res) {
         return res.body.artists.items.map((item) => {
-            const image = item.images.length > 0 ? item.images[item.images.length - 1].url : null
+            const image = item.images.length > 0 ? item.images[item.images.length - 1].url : null;
             return {
-                label: item.name,
+                name: item.name,
                 image
             };
         });

@@ -28,8 +28,8 @@ const renderInput = (inputProps) => {
 };
 
 const renderSuggestion = (suggestion, { query, isHighlighted }) => {
-    const matches = match(suggestion.label, query);
-    const parts = parse(suggestion.label, matches);
+    const matches = match(getSuggestionValue(suggestion), query);
+    const parts = parse(getSuggestionValue(suggestion), matches);
 
     return (
         <MenuItem selected={isHighlighted} component="div" style={{height: 'auto'}}>
@@ -64,7 +64,7 @@ const renderSuggestionsContainer = (options) => {
 };
 
 const getSuggestionValue = (suggestion) => {
-    return suggestion.label;
+    return suggestion.name;
 };
 
 const styles = theme => ({
