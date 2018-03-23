@@ -51,6 +51,13 @@ class ArtistSearchContainer extends Component {
         });
     };
 
+    onSelect = (selection) => {
+        this.setState({
+            value: ''
+        });
+        this.props.onSelect(selection);
+    };
+
     render() {
         return (
             <ArtistSearch
@@ -59,7 +66,7 @@ class ArtistSearchContainer extends Component {
                 handleChange={this.handleChange}
                 value={this.state.value}
                 suggestions={this.state.suggestions}
-                onSelect={this.props.onSelect}
+                onSelect={this.onSelect}
             />
         );
     }

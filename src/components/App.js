@@ -16,7 +16,7 @@ const styles = {
 class App extends Component {
     state = {
         auth: false,
-        selectedArtists: []
+        selectedArtists: {}
     };
 
     handleAuthorized = () => {
@@ -26,7 +26,9 @@ class App extends Component {
 
     handleArtistAdd = (selection) => {
         console.log(selection);
-        this.setState({selectedArtists: this.state.selectedArtists.concat(selection)});
+        this.setState((prevState, props) => ({
+            selectedArtists: {...prevState.selectedArtists, [selection.id]: selection}
+        }));
     };
 
     render() {

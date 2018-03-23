@@ -107,7 +107,7 @@ const ArtistSearch = (props) =>  (
         renderSuggestion={renderSuggestion}
         inputProps={{
             classes: props.classes,
-            placeholder: 'Search a country (start with a)',
+            placeholder: 'Search for an artist',
             value: props.value,
             onChange: props.handleChange,
         }}
