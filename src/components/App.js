@@ -13,6 +13,12 @@ import FlashMessage from './FlashMessage';
 import {compose} from 'recompose';
 import green from 'material-ui/colors/green';
 
+const redirectUri = (window.location.hostname === 'localhost')
+    ? "http://localhost:3000/callback.html"
+    : "https://davidmoodie.com/SpotOn/callback.html";
+
+const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
+
 const styles = {
     content: {
         padding: 20,
@@ -120,9 +126,6 @@ class App extends Component {
         );
     }
 }
-
-const redirectUri = "http://localhost:3000/callback.html";
-const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
 
 const enhance = compose(
     withStyles(styles),
