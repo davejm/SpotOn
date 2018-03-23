@@ -1,51 +1,56 @@
-<!DOCTYPE html>
+
 <html>
 <head>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/q/q.js"></script>
-  <script src="bower_components/spotify-web-api-js/src/spotify-web-api.js"></script>
-  <script src="js/callback.js"></script>
-  <style type="text/css">
-    body {
-        background-color: #333;
-        color: #fff;
-        overflow: hidden;
-        border: 0;
-        margin: 0;
-        padding: 0;
-    }
+    <script>
+        (function() {
+            function getUrlHash() {
+                var hash = {};
+                window.location.hash.replace(/^#\/?/, '').split('&').forEach(function(kv) {
+                    var spl = kv.indexOf('=');
+                    if (spl != -1) {
+                        hash[kv.substring(0, spl)] = decodeURIComponent(kv.substring(spl+1));
+                    }
+                });
+                return hash;
+            }
 
-    .site-wrapper {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 50%;
-        height: 50%;
-    }
+            // https://stackoverflow.com/a/1099670
+            function getQueryParams(qs) {
+                qs = qs.split('+').join(' ');
 
-    .site-wrapper-inner {
-        position: absolute;
-        right: -250px;
-        bottom: -30px;
-        width: 500px;
-        height: 100px;
-    }
-  </style>
-  <title></title>
+                var params = {},
+                    tokens,
+                    re = /[?&]?([^=]+)=([^&]*)/g;
+
+                while (tokens = re.exec(qs)) {
+                    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+                }
+
+                return params;
+            }
+
+            var hash = getUrlHash();
+            var urlParams = getQueryParams(window.location.search);
+
+            if (urlParams.error) {
+                window.opener.postMessage({
+                    type:'spotify_login_error',
+                    error: urlParams.error
+                }, window.location.origin);
+                window.close();
+            }
+
+            if (hash.access_token) {
+                window.opener.postMessage({
+                    type:'spotify_access_token',
+                    access_token: hash.access_token,
+                    expires_in: hash.expires_in || 0
+                }, window.location.origin);
+                window.close();
+            }
+
+            document.writeln('Unknown error');
+        })();
+    </script>
 </head>
-<body onload="doit()">
-  <div class="site-wrapper">
-    <div class="site-wrapper-inner">
-      <div id="creating" style="text-align: center;">
-        <h1>Creating playlist...</h1>
-      </div>
-      <div id="done" style="display: none; text-align: center;">
-        <h1>Done!</h1>
-        <p><a class="btn btn-lg btn-primary btn-success" id="playlistlink">Open playlist in Spotify</a></p>
-        <p><a target="_blank" class="btn btn-lg btn-primary btn-success" id="playlistlink-external">Open playlist in Web Browser</a></p>
-      </div>
-    </div>
-  </div>
-</body>
 </html>
