@@ -10,10 +10,13 @@ class ArtistSearchContainer extends Component {
 
     parseArtistSearchResponse(res) {
         return res.body.artists.items.map((item) => {
-            const image = item.images.length > 0 ? item.images[item.images.length - 1].url : null;
+            const imageHiRes = item.images.length > 0 ? item.images[0].url : null;
+            const imageLowRes = item.images.length > 0 ? item.images[item.images.length - 1].url : null;
             return {
                 name: item.name,
-                image
+                imageLowRes,
+                imageHiRes,
+                id: item.id
             };
         });
     }
@@ -21,7 +24,7 @@ class ArtistSearchContainer extends Component {
     searchArtist = async (query) => {
         const {spotifyApi} = this.props;
         try {
-            const res = await spotifyApi.searchArtists(query, {limit: 10});
+            const res = await spotifyApi.searchArtists(query, {limit: 6});
             console.log(res);
             return this.parseArtistSearchResponse(res);
         } catch (e) {
@@ -56,13 +59,15 @@ class ArtistSearchContainer extends Component {
                 handleChange={this.handleChange}
                 value={this.state.value}
                 suggestions={this.state.suggestions}
+                onSelect={this.props.onSelect}
             />
         );
     }
 }
 
 ArtistSearchContainer.propTypes = {
-    spotifyApi: PropTypes.object.isRequired
+    spotifyApi: PropTypes.object.isRequired,
+    onSelect: PropTypes.func.isRequired
 };
 
 export default ArtistSearchContainer;

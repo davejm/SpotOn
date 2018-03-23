@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import CssBaseline from 'material-ui/CssBaseline';
 import AppBar from './AppBar';
 import ArtistSearchContainer from '../containers/ArtistSearchContainer';
 import LoginContainer from '../containers/LoginContainer';
 import withSpotifyApi from '../hocs/SpotifyApi';
 import { withStyles } from 'material-ui/styles';
+import SelectedArtists from '../components/SelectedArtists';
 
 const styles = {
     content: {
@@ -14,12 +15,18 @@ const styles = {
 
 class App extends Component {
     state = {
-        auth: false
+        auth: false,
+        selectedArtists: []
     };
 
     handleAuthorized = () => {
         console.log('authorized');
         this.setState({auth: true});
+    };
+
+    handleArtistAdd = (selection) => {
+        console.log(selection);
+        this.setState({selectedArtists: this.state.selectedArtists.concat(selection)});
     };
 
     render() {
@@ -30,7 +37,12 @@ class App extends Component {
                 <AppBar/>
                 <div className={classes.content}>
                     {this.state.auth
-                        ? <ArtistSearchContainer spotifyApi={spotifyApi}/>
+                        ? (
+                            <Fragment>
+                                <ArtistSearchContainer spotifyApi={spotifyApi} onSelect={this.handleArtistAdd}/>
+                                <SelectedArtists artists={this.state.selectedArtists}/>
+                            </Fragment>
+                        )
                         : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized}/>
                     }
                 </div>

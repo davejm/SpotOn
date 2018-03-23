@@ -33,7 +33,7 @@ const renderSuggestion = (suggestion, { query, isHighlighted }) => {
 
     return (
         <MenuItem selected={isHighlighted} component="div" style={{height: 'auto'}}>
-            <Avatar src={suggestion.image}/>
+            <Avatar src={suggestion.imageLowRes}/>
             <ListItemText>
                 <Fragment>
                     {parts.map((part, index) => {
@@ -71,7 +71,7 @@ const styles = theme => ({
     container: {
         flexGrow: 1,
         position: 'relative',
-        height: 250,
+        height: 50,
     },
     suggestionsContainerOpen: {
         position: 'absolute',
@@ -111,6 +111,7 @@ const ArtistSearch = (props) =>  (
             value: props.value,
             onChange: props.handleChange,
         }}
+        onSuggestionSelected={(_, {suggestion}) => props.onSelect(suggestion)}
     />
 );
 
@@ -120,7 +121,8 @@ ArtistSearch.propTypes = {
     handleSuggestionsClearRequested: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
     suggestions: PropTypes.array.isRequired,
-    handleChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(ArtistSearch);
