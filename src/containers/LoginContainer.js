@@ -21,13 +21,15 @@ class LoginContainer extends Component {
         window.addEventListener("message", (event) => {
             // console.log(event);
             const message = event.data;
-            if (message.type === 'spotify_access_token') {
-                // console.log("access token", message);
-                this.props.spotifyApi.setAccessToken(message.access_token);
-                this.saveAccessToken(message.access_token, Number(message.expires_in));
-                this.props.onAuthorize();
-            } else if (message.type === 'spotify_login_error') {
-                this.props.showNotification('Error logging in - ' + message.error);
+            if (event.origin === window.location.origin) {
+                if (message.type === 'spotify_access_token') {
+                    // console.log("access token", message);
+                    this.props.spotifyApi.setAccessToken(message.access_token);
+                    this.saveAccessToken(message.access_token, Number(message.expires_in));
+                    this.props.onAuthorize();
+                } else if (message.type === 'spotify_login_error') {
+                    this.props.showNotification('Error logging in - ' + message.error);
+                }
             }
         }, false);
     };
