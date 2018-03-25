@@ -11,7 +11,6 @@ import omit from 'lodash.omit';
 import CreatePlaylistContainer from '../containers/CreatePlaylistContainer';
 import FlashMessage from './FlashMessage';
 import {compose} from 'recompose';
-import green from 'material-ui/colors/green';
 
 const redirectUri = (window.location.hostname === 'localhost')
     ? "http://localhost:3000/callback.html"
@@ -28,7 +27,18 @@ const styles = {
 
 const theme = createMuiTheme({
     palette: {
-        primary: green
+        primary: {
+            light: '#76d275',
+            main: '#43a047',
+            dark: '#00701a',
+            contrastText: '#fafafa',
+        },
+        secondary: {
+            light: '#c3fdff',
+            main: '#90caf9',
+            dark: '#5d99c6',
+            contrastText: '#fafafa',
+        }
     }
 });
 

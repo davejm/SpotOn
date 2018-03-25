@@ -17,7 +17,7 @@ const styles = {
 const AppBar = ({classes}) => (
     <MaterialAppBar position="static">
         <Toolbar>
-            <Typography variant="title" className={classes.flex} style={{color: 'white'}} noWrap>
+            <Typography variant="title" className={classes.flex} color='inherit' noWrap>
                 Top Playlist for Spotify - <a href="https://davidmoodie.com">David Moodie</a>
             </Typography>
             <Tooltip id="appbar-github" title="Top Playlist GitHub repo">
