@@ -1,7 +1,7 @@
-# SpotOn
+# Top Playlist for Spotify
 
-SpotOn allows you to easily create Spotify playlists from your artists' top tracks.
+Top Playlist allows you to easily create Spotify playlists from your chosen artists' top tracks.
 
-[Create your playlists here!](https://davidmoodie.com/SpotOn)
+[Create your playlists here!](https://davidmoodie.com/top-playlists)
 
 Originally I prototyped this in a day using Bootstrap and JQuery. The latest version uses React and MaterialUI.
