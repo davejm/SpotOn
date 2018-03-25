@@ -12,14 +12,13 @@ import CreatePlaylistContainer from '../containers/CreatePlaylistContainer';
 import FlashMessage from './FlashMessage';
 import {compose} from 'recompose';
 import Typography from 'material-ui/Typography';
-
-require('dotenv').config();
+import ReactGA from 'react-ga';
 
 const redirectUri = (window.location.hostname === 'localhost')
     ? "http://localhost:3000/callback.html"
-    : process.env.PUBLIC_CALLBACK_URL;
+    : process.env.REACT_APP_PUBLIC_CALLBACK_URL;
 
-const clientId = process.env.CLIENT_ID;
+const clientId = process.env.REACT_APP_CLIENT_ID;
 
 const styles = (theme) => ({
     intro: {
@@ -60,6 +59,14 @@ class App extends Component {
             openUrl: null
         }
     };
+
+    componentDidMount() {
+        const googleId = process.env.REACT_APP_GOOGLE_ID;
+        if (googleId) {
+            ReactGA.initialize(googleId);
+            ReactGA.pageview(window.location.pathname + window.location.search);
+        }
+    }
 
     handleAuthorized = () => {
         // console.log('authorized');
