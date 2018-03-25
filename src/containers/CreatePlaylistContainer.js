@@ -81,7 +81,7 @@ class CreatePlaylistContainer extends Component {
         const trackUris = await this.getTracks();
         const {playlistId, playlistUrl} = await this.createPlaylist(userId);
         await this.addTracksToPlaylist(userId, playlistId, trackUris);
-        showNotification('Successfully created playlist', playlistUrl);
+        showNotification('Successfully created playlist', playlistUrl, null);
     };
 
     render() {

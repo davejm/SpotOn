@@ -56,7 +56,8 @@ class App extends Component {
         notification: {
             open: false,
             text: '',
-            openUrl: null
+            openUrl: null,
+            autoHideDuration: null
         }
     };
 
@@ -96,12 +97,14 @@ class App extends Component {
         Object.keys(this.state.selectedArtists)
     );
 
-    showNotification = (text, openUrl = null) => {
+    showNotification = (text, openUrl = null, autoHideDuration = 4000) => {
+        // this.closeNotification();
         this.setState({
             notification: {
                 open: true,
                 text,
-                openUrl
+                openUrl,
+                autoHideDuration
             }
         });
     };
@@ -163,6 +166,7 @@ class App extends Component {
                     text={this.state.notification.text}
                     onClose={this.closeNotification}
                     openUrl={this.state.notification.openUrl}
+                    autoHideDuration={this.state.notification.autoHideDuration}
                 />
             </MuiThemeProvider>
         );

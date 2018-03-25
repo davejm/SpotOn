@@ -15,15 +15,15 @@ const styles = theme => ({
 
 class FlashMessage extends React.Component {
     handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+        // if (reason === 'clickaway') {
+        //     return;
+        // }
 
         this.props.onClose();
     };
 
     render() {
-        const { classes, openUrl } = this.props;
+        const { classes, openUrl, autoHideDuration } = this.props;
         return (
             <Snackbar
                 anchorOrigin={{
@@ -31,7 +31,7 @@ class FlashMessage extends React.Component {
                     horizontal: 'right',
                 }}
                 open={this.props.open}
-                autoHideDuration={4000}
+                autoHideDuration={autoHideDuration}
                 onClose={this.handleClose}
                 SnackbarContentProps={{
                     'aria-describedby': 'app-notification',
@@ -55,6 +55,7 @@ class FlashMessage extends React.Component {
                         </IconButton>
                     </Fragment>
                 }
+                key={this.props.text + (new Date())}
             />
         );
     }
@@ -65,7 +66,8 @@ FlashMessage.propTypes = {
     open: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    openUrl: PropTypes.string
+    openUrl: PropTypes.string,
+    autoHideDuration: PropTypes.number
 };
 
 export default withStyles(styles)(FlashMessage);
