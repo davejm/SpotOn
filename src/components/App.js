@@ -13,11 +13,13 @@ import FlashMessage from './FlashMessage';
 import {compose} from 'recompose';
 import Typography from 'material-ui/Typography';
 
+require('dotenv').config();
+
 const redirectUri = (window.location.hostname === 'localhost')
     ? "http://localhost:3000/callback.html"
-    : "https://davidmoodie.com/top-playlist/callback.html";
+    : process.env.PUBLIC_CALLBACK_URL;
 
-const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
+const clientId = process.env.CLIENT_ID;
 
 const styles = (theme) => ({
     intro: {
