@@ -11,6 +11,7 @@ import omit from 'lodash.omit';
 import CreatePlaylistContainer from '../containers/CreatePlaylistContainer';
 import FlashMessage from './FlashMessage';
 import {compose} from 'recompose';
+import Typography from 'material-ui/Typography';
 
 const redirectUri = (window.location.hostname === 'localhost')
     ? "http://localhost:3000/callback.html"
@@ -18,12 +19,15 @@ const redirectUri = (window.location.hostname === 'localhost')
 
 const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
 
-const styles = {
+const styles = (theme) => ({
+    intro: {
+        marginBottom: theme.spacing.unit * 4
+    },
     content: {
         padding: 20,
         paddingTop: 40
     }
-};
+});
 
 const theme = createMuiTheme({
     palette: {
@@ -108,6 +112,13 @@ class App extends Component {
                 <CssBaseline/>
                 <AppBar/>
                 <div className={classes.content}>
+                    <div className={classes.intro}>
+                        <Typography variant='title' gutterBottom>What does this app do?</Typography>
+                        <Typography>
+                            This app allows you to quickly and easily create Spotify playlists based on the top tracks
+                            of your chosen artists.
+                        </Typography>
+                    </div>
                     {this.state.auth
                         ? (
                             <Fragment>
