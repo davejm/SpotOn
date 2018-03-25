@@ -18,7 +18,15 @@ const AppBar = ({classes}) => (
     <MaterialAppBar position="static">
         <Toolbar>
             <Typography variant="title" className={classes.flex} color='inherit' noWrap>
-                Top Playlist for Spotify - <a href="https://davidmoodie.com">David Moodie</a>
+                <span>Top Playlist for Spotify - </span>
+                <a
+                    href="https://davidmoodie.com"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    style={{color: 'inherit', opacity: 0.7}}
+                >
+                    David Moodie
+                </a>
             </Typography>
             <Tooltip id="appbar-github" title="Top Playlist GitHub repo">
                 <IconButton

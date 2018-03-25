@@ -21,7 +21,8 @@ const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
 
 const styles = (theme) => ({
     intro: {
-        marginBottom: theme.spacing.unit * 4
+        marginBottom: theme.spacing.unit * 4,
+        textAlign: 'center'
     },
     content: {
         padding: 20,
@@ -112,13 +113,6 @@ class App extends Component {
                 <CssBaseline/>
                 <AppBar/>
                 <div className={classes.content}>
-                    <div className={classes.intro}>
-                        <Typography variant='title' gutterBottom>What does this app do?</Typography>
-                        <Typography>
-                            This app allows you to quickly and easily create Spotify playlists based on the top tracks
-                            of your chosen artists.
-                        </Typography>
-                    </div>
                     {this.state.auth
                         ? (
                             <Fragment>
@@ -141,7 +135,18 @@ class App extends Component {
                                 />
                             </Fragment>
                         )
-                        : <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized} showNotification={this.showNotification}/>
+                        : (
+                            <Fragment>
+                                <div className={classes.intro}>
+                                    <Typography variant='title' gutterBottom>What does this app do?</Typography>
+                                    <Typography>
+                                        This app allows you to quickly and easily create Spotify playlists based on the top tracks
+                                        of your chosen artists.
+                                    </Typography>
+                                </div>
+                                <LoginContainer spotifyApi={spotifyApi} onAuthorize={this.handleAuthorized} showNotification={this.showNotification}/>
+                            </Fragment>
+                        )
                     }
                 </div>
                 <FlashMessage
