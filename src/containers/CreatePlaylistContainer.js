@@ -70,8 +70,8 @@ class CreatePlaylistContainer extends Component {
     };
 
     create = async () => {
-        const {showNotification} = this.props;
-        if (this.props.playlistName === '') {
+        const {showNotification, playlistName, onSuccess} = this.props;
+        if (playlistName === '') {
             showNotification('Playlist name cannot be empty');
             return;
         }
@@ -82,6 +82,7 @@ class CreatePlaylistContainer extends Component {
         const {playlistId, playlistUrl} = await this.createPlaylist(userId);
         await this.addTracksToPlaylist(userId, playlistId, trackUris);
         showNotification('Successfully created playlist', playlistUrl, null);
+        onSuccess();
     };
 
     render() {
@@ -95,7 +96,8 @@ CreatePlaylistContainer.propTypes = {
     spotifyApi: PropTypes.object.isRequired,
     artistIds: PropTypes.array.isRequired,
     playlistName: PropTypes.string.isRequired,
-    showNotification: PropTypes.func.isRequired
+    showNotification: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func.isRequired
 };
 
 export default CreatePlaylistContainer;

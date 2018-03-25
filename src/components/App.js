@@ -118,6 +118,13 @@ class App extends Component {
         }))
     };
 
+    handleSuccess = () => {
+        this.setState({
+            selectedArtists: {},
+            newPlaylistName: ''
+        });
+    };
+
     render() {
         const {spotifyApi, classes} = this.props;
         return (
@@ -144,6 +151,7 @@ class App extends Component {
                                     artistIds={this.selectedArtistIds()}
                                     playlistName={this.state.newPlaylistName}
                                     showNotification={this.showNotification}
+                                    onSuccess={this.handleSuccess}
                                 />
                             </Fragment>
                         )
