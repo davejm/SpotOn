@@ -15,7 +15,7 @@ import green from 'material-ui/colors/green';
 
 const redirectUri = (window.location.hostname === 'localhost')
     ? "http://localhost:3000/callback.html"
-    : "https://davidmoodie.com/SpotOn/callback.html";
+    : "https://davidmoodie.com/top-playlist/callback.html";
 
 const clientId = "fe25f2f0df964008b26bc9e34ed3496a";
 

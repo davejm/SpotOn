@@ -17,15 +17,15 @@ const styles = {
 const AppBar = ({classes}) => (
     <MaterialAppBar position="static">
         <Toolbar>
-            <Typography variant="title" color="inherit" className={classes.flex}>
-                SpotOn - <a href="https://davidmoodie.com">David Moodie</a>
+            <Typography variant="title" className={classes.flex} style={{color: 'white'}} noWrap>
+                Top Playlist for Spotify - <a href="https://davidmoodie.com">David Moodie</a>
             </Typography>
-            <Tooltip id="appbar-github" title="SpotOn GitHub repo">
+            <Tooltip id="appbar-github" title="Top Playlist GitHub repo">
                 <IconButton
                     color="inherit"
                     component="a"
                     aria-labelledby="appbar-github"
-                    href="https://github.com/davejm/SpotOn"
+                    href="https://github.com/davejm/top-playlist"
                 >
                     <GithubCircle/>
                 </IconButton>
